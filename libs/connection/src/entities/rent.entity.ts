@@ -2,15 +2,15 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { User } from './users.entity';
 import { Book } from './book.entity';
 
-@Entity('rent')
+@Entity('rents')
 export class Rent {
   @ManyToOne(() => User)
-  @JoinColumn({ name: 'id' })
+  @JoinColumn({ name: 'user_id' })
   user: User;
 
   @Column()
   @PrimaryColumn()
-  user_id: string;
+  user_id: number;
 
   @ManyToOne(() => Book)
   @JoinColumn({ name: 'isbn' })
