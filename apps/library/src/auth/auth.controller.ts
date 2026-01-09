@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   HttpCode,
@@ -10,6 +11,7 @@ import {
 import { AuthService } from './auth.service';
 import { type RequestWithUser } from './types/request.types';
 import { LocalAuthGuard } from './local-auth.guard';
+import { type CreateUserDto } from '../users/dto/create-user.schema';
 
 @Controller('auth')
 export class AuthController {
@@ -26,5 +28,10 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   async me(@Request() req: RequestWithUser) {
     return await this.authService.profile(req.user);
+  }
+
+  @Post('register')
+  async register(@Body() newUser: CreateUserDto){
+    return await this.authService.register(newUser);
   }
 }

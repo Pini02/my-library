@@ -4,6 +4,7 @@ import * as bcrypt from 'bcrypt';
 import { User } from '@app/connection/entities/users.entity';
 import { JwtService } from '@nestjs/jwt';
 import { RentService } from '../rent/rent.service';
+import { CreateUserDto } from '../users/dto/create-user.schema';
 
 @Injectable()
 export class AuthService {
@@ -41,5 +42,11 @@ export class AuthService {
       rented: await this.rentService.getByUserId(user.id),
     };
     return payload;
+  }
+  async register(newUser: CreateUserDto) {
+    const user = await this.userService.findByEmail(newUser.email);
+    newUser.password = await bcrypt.hash(newUser.password, 10);
+    if (user) return null;
+    return this.userService.createUser(newUser);
   }
 }
