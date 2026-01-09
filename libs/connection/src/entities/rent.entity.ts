@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { User } from './users.entity';
 import { Book } from './book.entity';
 
@@ -9,6 +9,7 @@ export class Rent {
   user: User;
 
   @Column()
+  @PrimaryColumn()
   user_id: string;
 
   @ManyToOne(() => Book)
@@ -16,6 +17,7 @@ export class Rent {
   book: Book;
 
   @Column()
+  @PrimaryColumn()
   isbn: string;
 
   @Column()
