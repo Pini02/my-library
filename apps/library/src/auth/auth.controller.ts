@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
+  Patch,
   Post,
   Request,
   UseGuards,
@@ -12,6 +14,7 @@ import { AuthService } from './auth.service';
 import { type RequestWithUser } from './types/request.types';
 import { LocalAuthGuard } from './local-auth.guard';
 import { type CreateUserDto } from '../users/dto/create-user.schema';
+import { type UpdateUserDto } from '../users/dto/update-user.schema';
 
 @Controller('auth')
 export class AuthController {
@@ -33,5 +36,20 @@ export class AuthController {
   @Post('register')
   async register(@Body() newUser: CreateUserDto){
     return await this.authService.register(newUser);
+  }
+
+  @UseGuards(LocalAuthGuard)
+  @Delete('me')
+  async delete(@Request() req: RequestWithUser) {
+    return await this.authService.delete(req.user.id);
+  }
+
+  @UseGuards(LocalAuthGuard)
+  @Patch('me')
+  async update(
+    @Request() req: RequestWithUser,
+    @Body() updated: UpdateUserDto,
+  ) {
+    return await this.authService.update(req.user.id, updated);
   }
 }

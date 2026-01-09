@@ -5,6 +5,7 @@ import { User } from '@app/connection/entities/users.entity';
 import { JwtService } from '@nestjs/jwt';
 import { RentService } from '../rent/rent.service';
 import { CreateUserDto } from '../users/dto/create-user.schema';
+import { UpdateUserDto } from '../users/dto/update-user.schema';
 
 @Injectable()
 export class AuthService {
@@ -48,5 +49,11 @@ export class AuthService {
     newUser.password = await bcrypt.hash(newUser.password, 10);
     if (user) return null;
     return this.userService.createUser(newUser);
+  }
+  async delete(id: number) {
+    return this.userService.deleteUser(id);
+  }
+  async update(id: number, updated: UpdateUserDto) {
+    return this.userService.updateUser(id, updated);
   }
 }
