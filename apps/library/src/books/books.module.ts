@@ -7,5 +7,6 @@ import { ConnectionModule } from '@app/connection';
   imports: [ConnectionModule],
   providers: [BooksService],
   controllers: [BooksController],
+  exports: [BooksService],
 })
 export class BooksModule {}

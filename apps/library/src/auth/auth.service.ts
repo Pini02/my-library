@@ -6,6 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import { RentService } from '../rent/rent.service';
 import { CreateUserDto } from '../users/dto/create-user.schema';
 import { UpdateUserDto } from '../users/dto/update-user.schema';
+import { CreateRentDto } from './dto/create-rent.schema';
 
 @Injectable()
 export class AuthService {
@@ -55,5 +56,8 @@ export class AuthService {
   }
   async update(id: number, updated: UpdateUserDto) {
     return this.userService.updateUser(id, updated);
+  }
+  async rentBook(userId: number, rentData: CreateRentDto) {
+    return await this.rentService.rentBook(userId, rentData);
   }
 }

@@ -15,6 +15,7 @@ import { type RequestWithUser } from './types/request.types';
 import { LocalAuthGuard } from './local-auth.guard';
 import { type CreateUserDto } from '../users/dto/create-user.schema';
 import { type UpdateUserDto } from '../users/dto/update-user.schema';
+import { type CreateRentDto } from './dto/create-rent.schema';
 
 @Controller('auth')
 export class AuthController {
@@ -51,5 +52,11 @@ export class AuthController {
     @Body() updated: UpdateUserDto,
   ) {
     return await this.authService.update(req.user.id, updated);
+  }
+
+  @UseGuards(LocalAuthGuard)
+  @Post('me/rent')
+  async rentBook(@Request() req: RequestWithUser, @Body() body: CreateRentDto) {
+    return await this.authService.rentBook(req.user.id, body);
   }
 }

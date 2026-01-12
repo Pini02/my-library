@@ -6,6 +6,7 @@ import { ConnectionModule } from '@app/connection';
 import { JwtModule } from '@nestjs/jwt';
 import { LocalStrategy } from './local.strategy';
 import { RentService } from '../rent/rent.service';
+import { BooksService } from '../books/books.service';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { RentService } from '../rent/rent.service';
     AuthModule,
     UsersService,
     RentService,
+    BooksService,
     LocalStrategy,
   ],
   controllers: [AuthController],

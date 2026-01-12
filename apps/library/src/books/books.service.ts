@@ -32,4 +32,17 @@ export class BooksService {
       },
     };
   }
+  async rentBook(isbn: string) {
+    const book = await this.dataSource.getRepository(Book).findOne({
+      where: {
+        isbn: isbn,
+      },
+    });
+    if (book && book.quantity > 0) {
+      return await this.dataSource
+        .getRepository(Book)
+        .update({ isbn: isbn }, { quantity: book.quantity - 1 });
+    }
+    return null;
+  }
 }
