@@ -5,9 +5,16 @@ import { BooksModule } from './books/books.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersAdminModule } from './users-admin/users-admin.module';
 import { RentModule } from './rent/rent.module';
+import { ConnectionModule } from '@app/connection';
 
 @Module({
-  imports: [BooksModule, AuthModule, UsersAdminModule, RentModule],
+  imports: [
+    BooksModule,
+    AuthModule,
+    UsersAdminModule,
+    RentModule,
+    ConnectionModule,
+  ],
   controllers: [LibraryAdminController],
   providers: [LibraryAdminService],
 })

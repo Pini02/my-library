@@ -22,6 +22,15 @@ export class UsersAdminService {
     });
   }
 
+  findByEmail(email: string) {
+    console.log('Searching for email:', email);
+    return this.dataSource.getRepository(UserAdmin).findOne({
+      where: {
+        email: email,
+      },
+    });
+  }
+
   remove(id: number) {
     return this.dataSource.getRepository(UserAdmin).delete({ id: id });
   }
