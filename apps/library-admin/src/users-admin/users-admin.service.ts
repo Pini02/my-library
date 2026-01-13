@@ -23,7 +23,6 @@ export class UsersAdminService {
   }
 
   findByEmail(email: string) {
-    console.log('Searching for email:', email);
     return this.dataSource.getRepository(UserAdmin).findOne({
       where: {
         email: email,

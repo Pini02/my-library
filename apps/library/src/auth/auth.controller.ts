@@ -16,6 +16,7 @@ import { LocalAuthGuard } from './local-auth.guard';
 import { type CreateUserDto } from '../users/dto/create-user.schema';
 import { type UpdateUserDto } from '../users/dto/update-user.schema';
 import { type CreateRentDto } from './dto/create-rent.schema';
+import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -28,8 +29,8 @@ export class AuthController {
     return this.authService.login(req.user);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('me')
-  @UseGuards(LocalAuthGuard)
   async me(@Request() req: RequestWithUser) {
     return await this.authService.profile(req.user);
   }
@@ -39,13 +40,13 @@ export class AuthController {
     return await this.authService.register(newUser);
   }
 
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Delete('me')
   async delete(@Request() req: RequestWithUser) {
     return await this.authService.delete(req.user.id);
   }
 
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Patch('me')
   async update(
     @Request() req: RequestWithUser,
@@ -54,7 +55,7 @@ export class AuthController {
     return await this.authService.update(req.user.id, updated);
   }
 
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post('me/rent')
   async rentBook(@Request() req: RequestWithUser, @Body() body: CreateRentDto) {
     return await this.authService.rentBook(req.user.id, body);

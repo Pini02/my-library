@@ -4,6 +4,7 @@ import { Book } from './book.entity';
 
 @Entity('rents')
 export class Rent {
+
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user: User;

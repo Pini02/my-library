@@ -9,32 +9,32 @@ import {
 } from '@nestjs/common';
 import { UsersAdminService } from './users-admin.service';
 import { type CreateUsersAdminDto } from './dto/create-users-admin.dto';
-import { LocalAuthGuard } from '../auth/local-auth.guard';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('admin/users-admin')
 export class UsersAdminController {
   constructor(private readonly usersAdminService: UsersAdminService) {}
 
   @Post()
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(JwtAuthGuard)
   create(@Body() createUsersAdminDto: CreateUsersAdminDto) {
     return this.usersAdminService.create(createUsersAdminDto);
   }
 
   @Get()
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(JwtAuthGuard)
   findAll() {
     return this.usersAdminService.findAll();
   }
 
   @Get(':id')
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(JwtAuthGuard)
   findOne(@Param('id') id: number) {
     return this.usersAdminService.findOne(id);
   }
 
   @Delete(':id')
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: number) {
     return this.usersAdminService.remove(id);
   }

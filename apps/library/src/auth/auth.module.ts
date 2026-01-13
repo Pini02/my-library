@@ -7,13 +7,14 @@ import { JwtModule } from '@nestjs/jwt';
 import { LocalStrategy } from './local.strategy';
 import { RentService } from '../rent/rent.service';
 import { BooksService } from '../books/books.service';
+import { JwtStrategy } from './jwt.strategy';
 
 @Module({
   imports: [
     ConnectionModule,
     JwtModule.register({
       secret: '1234567890',
-      signOptions: { expiresIn: '1h' },
+      signOptions: { expiresIn: '2m' },
     }),
   ],
   providers: [
@@ -23,6 +24,7 @@ import { BooksService } from '../books/books.service';
     RentService,
     BooksService,
     LocalStrategy,
+    JwtStrategy,
   ],
   controllers: [AuthController],
 })

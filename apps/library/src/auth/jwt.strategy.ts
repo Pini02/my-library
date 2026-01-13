@@ -1,9 +1,6 @@
 import { PassportStrategy } from '@nestjs/passport';
-import { Request } from 'express';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { Injectable } from '@nestjs/common';
 
-@Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
     super({
@@ -12,8 +9,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       secretOrKey: '1234567890',
     });
   }
-  validate(payload: { sub: number; email: string }) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    payload;
+  validate(payload: any) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return payload;
   }
 }

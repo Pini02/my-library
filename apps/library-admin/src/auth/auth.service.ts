@@ -14,10 +14,8 @@ export class AuthService {
 
   async signIn(login: LoginDto) {
     const user = await this.usersAdminService.findByEmail(login.email);
-    console.log(user);
     if (!user) return null;
     const isValid = await bcrypt.compare(login.password, user.password);
-    console.log(isValid);
     if (!isValid) return null;
     return user;
   }
